@@ -44,6 +44,7 @@ public class MainWindow extends javax.swing.JFrame {
         PROJECT_PROPERTIES.loadProperties();
         jXmlFileChooser.setCurrentDirectory(new File(PROJECT_PROPERTIES.getWorkPath()));
         jXslFileChooser.setCurrentDirectory(new File(PROJECT_PROPERTIES.getWorkPath()));
+        jPdfFileChooser.setCurrentDirectory(new File(PROJECT_PROPERTIES.getWorkPath()));
         setLocationRelativeTo(null);
     }
 
@@ -80,6 +81,7 @@ public class MainWindow extends javax.swing.JFrame {
         jOkDialog = new javax.swing.JDialog();
         jOkDialogOkButton = new javax.swing.JButton();
         jOkdialogLabel = new javax.swing.JLabel();
+        jPdfFileChooser = new javax.swing.JFileChooser();
         jAwardNameText = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jNewCreateButton = new javax.swing.JButton();
@@ -91,6 +93,10 @@ public class MainWindow extends javax.swing.JFrame {
         jExistingXslText = new javax.swing.JTextField();
         jExistingXmlScrollPane = new javax.swing.JScrollPane();
         jExistingXmlText = new javax.swing.JTextArea();
+        jPDFScrollPane = new javax.swing.JScrollPane();
+        jPDFTextField = new javax.swing.JTextArea();
+        jPDFButton = new javax.swing.JButton();
+        jPDFLabel = new javax.swing.JLabel();
         jMainMenu = new javax.swing.JMenuBar();
         jFileMenu = new javax.swing.JMenu();
         jNewMenuItem = new javax.swing.JMenuItem();
@@ -315,6 +321,10 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(19, 19, 19))
         );
 
+        jPdfFileChooser.setDialogTitle("Select PDF files");
+        jPdfFileChooser.setFileFilter(new PdfFileFilter());
+        jPdfFileChooser.setMultiSelectionEnabled(true);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jAwardNameText.setText("award-sample-name");
@@ -357,6 +367,19 @@ public class MainWindow extends javax.swing.JFrame {
         jExistingXmlText.setRows(5);
         jExistingXmlScrollPane.setViewportView(jExistingXmlText);
 
+        jPDFTextField.setColumns(20);
+        jPDFTextField.setRows(5);
+        jPDFScrollPane.setViewportView(jPDFTextField);
+
+        jPDFButton.setText("jButton1");
+        jPDFButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jPDFButtonActionPerformed(evt);
+            }
+        });
+
+        jPDFLabel.setText("Reference PDF");
+
         jFileMenu.setText("File");
 
         jNewMenuItem.setText("New");
@@ -387,57 +410,62 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jAddXmlLabel)
-                    .addComponent(jAddXslLabel))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jExistingXslText)
-                    .addComponent(jAwardNameText)
-                    .addComponent(jExistingXmlScrollPane))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jXmlChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jXslChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(189, Short.MAX_VALUE)
+                .addGap(102, 178, Short.MAX_VALUE)
                 .addComponent(jNewCreateButton)
-                .addGap(83, 83, 83)
+                .addGap(121, 121, 121)
                 .addComponent(jCloseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(172, 172, 172))
+                .addGap(132, 132, 132))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jAddXmlLabel)
+                    .addComponent(jPDFLabel)
+                    .addComponent(jAddXslLabel, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jAwardNameText)
+                    .addComponent(jPDFScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jExistingXmlScrollPane, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jExistingXslText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jXmlChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jXslChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPDFButton, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jExistingXslText, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jAddXslLabel)
-                    .addComponent(jXslChooseButton)
-                    .addComponent(jExistingXslText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jAddXmlLabel)
-                            .addComponent(jXmlChooseButton))
-                        .addGap(76, 76, 76))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jExistingXmlScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jAwardNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jXslChooseButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jExistingXmlScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jXmlChooseButton)
+                    .addComponent(jAddXmlLabel))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPDFLabel)
+                    .addComponent(jPDFButton)
+                    .addComponent(jPDFScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jAwardNameText, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(jLabel1))
+                .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jNewCreateButton)
                     .addComponent(jCloseButton))
-                .addGap(47, 47, 47))
+                .addGap(34, 34, 34))
         );
+
+        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jExistingXmlScrollPane, jPDFScrollPane});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -542,6 +570,12 @@ public class MainWindow extends javax.swing.JFrame {
                     Files.copy(Paths.get(file.toURI()), currentWorkPath.resolve(file.getName()), StandardCopyOption.REPLACE_EXISTING);
                 }
             }
+            if (jPdfFileChooser.getSelectedFiles() != null && jPdfFileChooser.getSelectedFiles().length != 0) {
+                for (File file : jPdfFileChooser.getSelectedFiles()) {
+                    Files.copy(Paths.get(file.toURI()), currentResourcesPath.resolve("reference").resolve(file.getName()), StandardCopyOption.REPLACE_EXISTING);
+                    Files.copy(Paths.get(file.toURI()), currentWorkPath.resolve(file.getName()), StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
             Files.copy(openPdfStream, currentWorkPath.resolve(DEFAULT_OPEN_PDF_FILE_NAME), StandardCopyOption.REPLACE_EXISTING);
 
         } catch (IOException e) {
@@ -594,6 +628,21 @@ public class MainWindow extends javax.swing.JFrame {
         }
         
     }
+    
+    class PdfFileFilter extends FileFilter {
+
+        @Override
+        public boolean accept(File file) {
+            return file.isDirectory() || file.getAbsolutePath().endsWith(".pdf");
+        }
+
+        @Override
+        public String getDescription() {
+            return "PDF documents (.pdf)";
+        }
+        
+    }
+    
     
     private int updateConvertFile() {
         PROJECT_PROPERTIES.loadProperties();
@@ -719,6 +768,19 @@ public class MainWindow extends javax.swing.JFrame {
         jOkDialog.dispose();
     }//GEN-LAST:event_jOkDialogOkButtonActionPerformed
 
+    private void jPDFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPDFButtonActionPerformed
+        final String SEPARATOR = String.format("%n");
+        int returnValue = jPdfFileChooser.showOpenDialog(this);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File[] files = jPdfFileChooser.getSelectedFiles();
+            StringBuilder text = new StringBuilder();
+            for (File file : files) {
+                text.append(file.getName()).append(SEPARATOR);
+            }
+            jPDFTextField.setText(text.toString());
+        }
+    }//GEN-LAST:event_jPDFButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -780,6 +842,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JDialog jOkDialog;
     private javax.swing.JButton jOkDialogOkButton;
     private javax.swing.JLabel jOkdialogLabel;
+    private javax.swing.JButton jPDFButton;
+    private javax.swing.JLabel jPDFLabel;
+    private javax.swing.JScrollPane jPDFScrollPane;
+    private javax.swing.JTextArea jPDFTextField;
+    private javax.swing.JFileChooser jPdfFileChooser;
     private javax.swing.JButton jPreferencesApply;
     private javax.swing.JButton jPreferencesCancel;
     private javax.swing.JMenuItem jPreferencesMenu;
